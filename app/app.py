@@ -1,25 +1,25 @@
 from agent_graph.graph import create_graph, compile_workflow
 
-# server = 'ollama'
-# model = 'llama3:instruct'
-# model_endpoint = None
-
-server = 'openai'
-model = 'gpt-4o'
+server = "ollama"
+model = "llama3.2:3b"
 model_endpoint = None
+
+# server = 'openai'
+# model = 'gpt-4o'
+# model_endpoint = None
 
 # server = 'vllm'
 # model = 'meta-llama/Meta-Llama-3-70B-Instruct' # full HF path
-# model_endpoint = 'https://kcpqoqtjz0ufjw-8000.proxy.runpod.net/' 
+# model_endpoint = 'https://kcpqoqtjz0ufjw-8000.proxy.runpod.net/'
 # #model_endpoint = runpod_endpoint + 'v1/chat/completions'
 # stop = "<|end_of_text|>"
 
 iterations = 40
 
-print ("Creating graph and compiling workflow...")
+print("Creating graph and compiling workflow...")
 graph = create_graph(server=server, model=model, model_endpoint=model_endpoint)
 workflow = compile_workflow(graph)
-print ("Graph and workflow created.")
+print("Graph and workflow created.")
 
 
 if __name__ == "__main__":
@@ -43,14 +43,8 @@ if __name__ == "__main__":
         #     else:
         #         print("\n")
 
-        for event in workflow.stream(
-            dict_inputs, limit
-            ):
+        for event in workflow.stream(dict_inputs, limit, debug=False):
             if verbose:
                 print("\nState Dictionary:", event)
             else:
                 print("\n")
-
-
-
-    
